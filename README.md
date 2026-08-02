@@ -11,20 +11,26 @@ Spring Boot image hosting app (register, login, upload/edit/delete images with t
 createdb imageHoster
 ```
 
-DB connection defaults (in `JpaConfig` / `persistence.xml`):
+DB settings via env vars (optional):
 
-- URL: `jdbc:postgresql://localhost:5432/imageHoster`
-- User: your macOS username (`shashesi2712`)
-- Password: empty (local trust auth)
+- `DB_URL` — default `jdbc:postgresql://localhost:5432/imageHoster`
+- `DB_USER` — default `shashesi2712`
+- `DB_PASSWORD` — default empty
 
 ## Run
 
 ```bash
 export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
 export PATH="$JAVA_HOME/bin:$PATH"
+# export DB_PASSWORD='your-password'   # if needed
 mvn spring-boot:run
 ```
 
-Open [http://localhost:8080](http://localhost:8080).
+Or build and run the JAR:
 
-Do **not** run `ImageHosterApplication` via the plain Java “Run” button without Maven — Spring dependencies will be missing.
+```bash
+mvn -DskipTests package
+java -jar target/ImageHoster-1.0-SNAPSHOT.jar
+```
+
+Open [http://localhost:8080](http://localhost:8080).

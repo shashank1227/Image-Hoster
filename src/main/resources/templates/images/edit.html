@@ -1,37 +1,33 @@
-<html xmlns:th="http://thymeleaf.org">
-
-<head th:replace="layout :: site-head">
-</head>
-
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: site-head"></head>
+<body>
 <header th:replace="layout :: logged-in"></header>
 
-<h1>Edit Image</h1>
+<main class="page">
+    <h1 class="page-title">Edit</h1>
+    <p class="page-lead">Update this image.</p>
 
-<form th:method="put" th:action="@{/editImage(imageId=${image.id})}" enctype="multipart/form-data">
-
-    <div>Image Title :</div>
-    <div>
-        <input type="text" name="title" size="70" th:value="${image.title}"/>
-    </div>
-
-    <div> Description :</div>
-    <div>
-        <textarea rows="7" cols="100" name="description" th:text="${image.description}"></textarea>
-    </div>
-
-    <div>
-        <label for="file">Edit File</label>
-        <input type="file" name="file" id="file"/>
-    </div>
-
-    <!-- The code provides an option to edit the tags of an image and also displays the previous assigned tags to an image-->
-    <div>
-        <label for="tags">Edit Tags</label>
-        <textarea type="text" name="tags" id="tags" th:text="${tags}"></textarea>
-        <p>Multiple tags are allowed. Please separate tags by "," such as labrador,dog,yellow </p>
-    </div>
-
-    <input type="submit" value="Submit"/>
-</form>
-
+    <form class="form" th:method="put" th:action="@{/editImage(imageId=${image.id})}" enctype="multipart/form-data">
+        <label>
+            Title
+            <input type="text" name="title" th:value="${image.title}" required="required"/>
+        </label>
+        <label>
+            Description
+            <textarea name="description" th:text="${image.description}"></textarea>
+        </label>
+        <label>
+            Replace file
+            <input type="file" name="file" id="file"/>
+        </label>
+        <label>
+            Tags
+            <textarea name="tags" id="tags" th:text="${tags}"></textarea>
+        </label>
+        <p class="hint">Separate tags with commas.</p>
+        <input type="submit" value="Save"/>
+    </form>
+</main>
+</body>
 </html>

@@ -1,24 +1,21 @@
-<!Doctype html>
-
-<html xmlns:th="http://thymeleaf.org">
-
-<!-- Adding the fragment site-head in layout.html-->
-<head th:replace="layout :: site-head">
-</head>
-
-<!-- Adding the fragment logged-out in layout.html-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: site-head"></head>
+<body>
 <header th:replace="layout :: logged-out"></header>
 
-<body>
-<h1>Image Hoster</h1>
-<main id="images">
-    <post th:each="i : ${images}">
-        <div>
-            <img th:src="'data:image/jpeg;base64,'+${i.imageFile}"/>
-        </div>
-        <h2 th:text="${i.title}"></h2>
-        <i>Posted On: </i> <span th:text="${i.date}"></span>
-    </post>
+<main class="page">
+    <h1 class="page-title">Image Hoster</h1>
+    <p class="page-lead">A quiet place for pictures.</p>
+
+    <section class="gallery" th:if="${!#lists.isEmpty(images)}">
+        <article class="gallery-item" th:each="i : ${images}">
+            <img th:src="'data:image/jpeg;base64,' + ${i.imageFile}" th:alt="${i.title}"/>
+            <h2 th:text="${i.title}">Title</h2>
+            <p class="meta" th:text="${#dates.format(i.date, 'd MMM yyyy')}">Date</p>
+        </article>
+    </section>
+    <p class="empty" th:if="${#lists.isEmpty(images)}">No images yet.</p>
 </main>
 </body>
 </html>

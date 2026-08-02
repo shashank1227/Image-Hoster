@@ -1,33 +1,35 @@
-<!Doctype html>
-
-<html xmlns:th="http://thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="site-head">
-    <title>Spring MVC Application - Image Hoster</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Image Hoster</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/site.css}"/>
 </head>
 
 <body>
 
-
-<!-- The logged-out fragment now contains Login as well as Registration-->
-<header th:fragment="logged-out" th:remove="tag">
-    <header>
-        <a href="users/login.html" th:href="@{/users/login}">Login</a>
-        <a href="users/registration.html" th:href="@{/users/registration}">Registration</a>
-    </header>
+<header th:fragment="logged-out" class="site-header">
+    <a class="brand" th:href="@{/}">Image Hoster</a>
+    <nav class="nav">
+        <a th:href="@{/users/login}">Login</a>
+        <a th:href="@{/users/registration}">Register</a>
+    </nav>
 </header>
 
-<!-- Define a logged-in fragment-->
-<header th:fragment="logged-in" th:remove="tag">
-    <header>
-        <b>Logged in as:</b>
-        <label th:text="${session.loggeduser.profile.fullName}"></label> |
-        <a href="images/upload.html" th:href="@{/images/upload}">Upload Image</a>
+<header th:fragment="logged-in" class="site-header">
+    <a class="brand" th:href="@{/images}">Image Hoster</a>
+    <nav class="nav">
+        <span class="user-label" th:text="${session.loggeduser.profile.fullName}">User</span>
+        <a th:href="@{/images/upload}">Upload</a>
         <form method="post" th:action="@{/users/logout}">
             <input type="submit" value="Logout"/>
         </form>
-    </header>
+    </nav>
 </header>
 
 </body>
-
 </html>
